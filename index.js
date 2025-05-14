@@ -12,10 +12,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public')); // Serve static files like index.html
 
-// Dialogflow config
-const sessionClient = new dialogflow.SessionsClient({
-  keyFilename: path.join(__dirname, 'dialogflow-key.json'),
-});
+process.env.GOOGLE_APPLICATION_CREDENTIALS = "/etc/secrets/dialogflow-key.json";
+const sessionClient = new dialogflow.SessionsClient();
+
 const projectId = 'test-dwui'; // 🟡 Replace with your actual Dialogflow project ID
 
 app.post('/ask', async (req, res) => {
